@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Card = () => {
+const Cart = () => {
     return (
         <div className="container container--cart">
             <div class="cart">
@@ -308,4 +308,4 @@ const Card = () => {
     );
 };
 
-export default Card;
+export default Cart;

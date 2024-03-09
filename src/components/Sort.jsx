@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setSort } from '../redux/slices/FilterSlice';
 
-const list = [
+export const sortList = [
     { name: 'популярности (DESC)', sortProperty: 'rating' },
     { name: 'популярности (ASC)', sortProperty: '-rating' },
     { name: 'цене (DESC)', sortProperty: 'price' },
@@ -15,16 +15,28 @@ const list = [
 function Sort() {
     const dispatch = useDispatch();
     const sort = useSelector(state => state.filter.sort);
+    const sortRef = React.useRef();
 
-    const [open, SetOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
 
     const onClickListItem = obj => {
         dispatch(setSort(obj));
-        SetOpen(false);
+        setOpen(false);
     };
 
+    React.useEffect(() => {
+        const handleClickOutside = event => {
+            if (!event.composedPath().includes(sortRef.current)) {
+                setOpen(false);
+            }
+        };
+        document.body.addEventListener('click', handleClickOutside);
+
+        return () => document.body.removeEventListener('click', handleClickOutside);
+    }, []);
+
     return (
-        <div className="sort">
+        <div ref={sortRef} className="sort">
             <div className="sort__label">
                 <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -33,12 +45,12 @@ function Sort() {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={() => SetOpen(!open)}>{sort.name}</span>
+                <span onClick={() => setOpen(!open)}>{sort.name}</span>
             </div>
             {open && (
                 <div className="sort__popup">
                     <ul>
-                        {list.map((obj, index) => (
+                        {sortList.map((obj, index) => (
                             <li onClick={() => onClickListItem(obj)} className={sort.sortProperty === obj.sortProperty ? 'active' : ''}>
                                 {obj.name}
                             </li>
