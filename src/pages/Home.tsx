@@ -9,9 +9,14 @@ import Sort, { sortList } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
-import { selectFilter, setCategoryId, setCurrentPage, setFilters } from '../redux/slices/FilterSlice';
-import { SearchPizzaParams, fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
+
+
 import { useAppDispatch } from '../redux/store';
+import { selectPizzaData } from '../redux/pizza/selectors';
+
+import { selectFilter } from '../redux/filter/selectors';
+import { setCategoryId, setCurrentPage } from '../redux/filter/slice';
+import { fetchPizzas } from '../redux/pizza/asyncActions';
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
