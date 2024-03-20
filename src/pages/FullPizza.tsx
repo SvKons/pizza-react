@@ -18,6 +18,7 @@ const FullPizza = () => {
             }
         }
         fetchPizza();
+        // eslint-disable-next-line
     }, []);
 
     if (!pizza) {
@@ -26,7 +27,7 @@ const FullPizza = () => {
 
     return (
         <div className="container">
-            <img src={pizza.imageUrl} alt="pizza image" />
+            <img src={pizza.imageUrl} alt="pizza-image" />
             <h2>{pizza.title}</h2>
             <h4>{pizza.price}</h4>
         </div>
