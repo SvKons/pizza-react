@@ -18,6 +18,7 @@ const Search: React.FC = () => {
         inputRef.current?.focus();
     };
 
+    // eslint-disable-next-line
     const updateSearchValue = React.useCallback(
         debounce((str: any) => {
             dispatch(setSearchValue(str));
